@@ -19,6 +19,7 @@ module.exports = {
   resolve: {
     root: __dirname,
     alias: {
+      SearchBar: 'src/containers/search-bar.jsx'
     },
     extensions: ['', '.js', '.jsx']
   },
