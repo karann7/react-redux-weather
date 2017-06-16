@@ -20,7 +20,8 @@ module.exports = {
     root: __dirname,
     alias: {
       SearchBar: 'src/containers/search-bar.jsx',
-      WeatherList: 'src/containers/weather-list.js'
+      WeatherList: 'src/containers/weather-list.js',
+      SparkLine: 'src/components/sparkline'
     },
     extensions: ['', '.js', '.jsx']
   },

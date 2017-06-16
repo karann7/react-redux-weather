@@ -73,7 +73,7 @@
 
 	var _app2 = _interopRequireDefault(_app);
 
-	var _reducers = __webpack_require__(235);
+	var _reducers = __webpack_require__(236);
 
 	var _reducers2 = _interopRequireDefault(_reducers);
 
@@ -22527,6 +22527,10 @@
 
 	var _SearchBar2 = _interopRequireDefault(_SearchBar);
 
+	var _WeatherList = __webpack_require__(235);
+
+	var _WeatherList2 = _interopRequireDefault(_WeatherList);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22550,7 +22554,8 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_SearchBar2.default, null)
+	        _react2.default.createElement(_SearchBar2.default, null),
+	        _react2.default.createElement(_WeatherList2.default, null)
 	      );
 	    }
 	  }]);
@@ -22599,8 +22604,6 @@
 	    var _this = _possibleConstructorReturn(this, (SearchBar.__proto__ || Object.getPrototypeOf(SearchBar)).call(this, props));
 
 	    _this.state = { term: '' };
-	    _this.onInputChange = _this.onInputChange.bind(_this);
-	    _this.onFormSubmit = _this.onFormSubmit.bind(_this);
 	    return _this;
 	  }
 
@@ -22623,13 +22626,13 @@
 	    value: function render() {
 	      return _react2.default.createElement(
 	        'form',
-	        { onSubmit: this.onFormSubmit, className: 'input-group' },
+	        { onSubmit: this.onFormSubmit.bind(this), className: 'input-group' },
 	        _react2.default.createElement('input', {
 	          autoFocus: true,
 	          value: this.state.term,
 	          placeholder: 'Get a five-day forecast in your favorite cities',
 	          className: 'form-control',
-	          onChange: this.onInputChange }),
+	          onChange: this.onInputChange.bind(this) }),
 	        _react2.default.createElement(
 	          'span',
 	          { className: 'input-group-btn' },
@@ -22661,6 +22664,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	exports.FETCH_WEATHER = undefined;
 	exports.fetchWeather = fetchWeather;
 
 	var _axios = __webpack_require__(209);
@@ -22671,7 +22675,7 @@
 
 	var API_KEY = '7349bcbde71c819ee8362d31bdd37251';
 	var ROOT_URL = 'http://api.openweathermap.org/data/2.5/forecast?appid=' + API_KEY;
-	var FETCH_WEATHER = 'FETCH_WEATHER';
+	var FETCH_WEATHER = exports.FETCH_WEATHER = 'FETCH_WEATHER';
 
 	function fetchWeather(city) {
 	  var url = ROOT_URL + '&q=' + city;
@@ -24223,9 +24227,112 @@
 	  value: true
 	});
 
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(2);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(160);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var WeatherList = function (_Component) {
+	  _inherits(WeatherList, _Component);
+
+	  function WeatherList() {
+	    _classCallCheck(this, WeatherList);
+
+	    return _possibleConstructorReturn(this, (WeatherList.__proto__ || Object.getPrototypeOf(WeatherList)).apply(this, arguments));
+	  }
+
+	  _createClass(WeatherList, [{
+	    key: 'renderWeather',
+	    value: function renderWeather(cityData) {
+	      var cityName = cityData.city.name;
+	      return _react2.default.createElement(
+	        'tr',
+	        { key: cityName },
+	        _react2.default.createElement(
+	          'td',
+	          null,
+	          cityName
+	        )
+	      );
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'table',
+	        { className: 'table table-hover' },
+	        _react2.default.createElement(
+	          'thead',
+	          null,
+	          _react2.default.createElement(
+	            'tr',
+	            null,
+	            _react2.default.createElement(
+	              'th',
+	              null,
+	              'City'
+	            ),
+	            _react2.default.createElement(
+	              'th',
+	              null,
+	              'Temperature'
+	            ),
+	            _react2.default.createElement(
+	              'th',
+	              null,
+	              'Pressure'
+	            ),
+	            _react2.default.createElement(
+	              'th',
+	              null,
+	              'Humidity'
+	            )
+	          )
+	        ),
+	        _react2.default.createElement(
+	          'tbody',
+	          null,
+	          this.props.weather.map(this.renderWeather)
+	        )
+	      );
+	    }
+	  }]);
+
+	  return WeatherList;
+	}(_react.Component);
+
+	function mapStateToProps(_ref) {
+	  var weather = _ref.weather;
+
+	  return { weather: weather };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(WeatherList);
+
+/***/ }),
+/* 236 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
 	var _redux = __webpack_require__(166);
 
-	var _reducer_weather = __webpack_require__(236);
+	var _reducer_weather = __webpack_require__(237);
 
 	var _reducer_weather2 = _interopRequireDefault(_reducer_weather);
 
@@ -24238,8 +24345,8 @@
 	exports.default = rootReducer;
 
 /***/ }),
-/* 236 */
-/***/ (function(module, exports) {
+/* 237 */
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
@@ -24248,12 +24355,17 @@
 	});
 
 	exports.default = function () {
-	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : null;
+	  var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
 	  var action = arguments[1];
 
-	  console.log('Action recieved: ', action);
+	  switch (action.type) {
+	    case _index.FETCH_WEATHER:
+	      return state.concat([action.payload.data]);
+	  }
 	  return state;
 	};
+
+	var _index = __webpack_require__(208);
 
 /***/ })
 /******/ ]);
