@@ -19,7 +19,8 @@ module.exports = {
   resolve: {
     root: __dirname,
     alias: {
-      SearchBar: 'src/containers/search-bar.jsx'
+      SearchBar: 'src/containers/search-bar.jsx',
+      WeatherList: 'src/containers/weather-list.js'
     },
     extensions: ['', '.js', '.jsx']
   },
