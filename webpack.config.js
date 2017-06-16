@@ -21,7 +21,8 @@ module.exports = {
     alias: {
       SearchBar: 'src/containers/search-bar.jsx',
       WeatherList: 'src/containers/weather-list.js',
-      SparkLine: 'src/components/sparkline'
+      SparkLine: 'src/components/sparkline',
+      GoogleMap: 'src/components/googleMap'
     },
     extensions: ['', '.js', '.jsx']
   },
